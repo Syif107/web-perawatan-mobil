@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Armada Pelayan Kemanusiaan — melaksanakan hubungan kepada sesama manusia. Atur jadwal perawatan armada, catat tanggal dan jenis perawatan, serta simpan foto sebagai bukti.">
+  <meta name="theme-color" content="#070b0c">
+  <title>Armada Pelayan Kemanusiaan — Jadwal &amp; Bukti Perawatan Armada</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="blessing-bar">
+    <p class="blessing-text">
+      <span class="blessing-line" aria-hidden="true"></span>
+      <span>ATAS BERKAT ROCHMAT ALLOH YANG MAHA KUASA</span>
+      <span class="blessing-line" aria-hidden="true"></span>
+    </p>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <div class="container header-inner">
+      <a class="brand" href="#" aria-label="Armada Pelayan Kemanusiaan — kembali ke atas">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <span class="brand-name">Armada Pelayan</span>
+          <span class="brand-tagline">Kemanusiaan</span>
+        </span>
+      </a>
+
+      <div class="header-actions">
+        <span class="save-note" title="Data disimpan di perangkat ini">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          Tersimpan lokal
+        </span>
+        <button type="button" class="btn btn-primary" id="addBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+            <path d="M12 5v14M5 12h14"/>
+          </svg>
+          <span class="label-full">Tambah jadwal</span>
+          <span class="label-short">Tambah</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="hero-org">
+            <span class="hero-org-line" aria-hidden="true"></span>
+            <span>ARMADA PELAYAN KEMANUSIAAN</span>
+          </p>
+          <h1 class="hero-motto">
+            <span class="motto-line">Melaksanakan</span>
+            <span class="motto-line">hubungan kepada</span>
+            <span class="motto-line serif">sesama manusia.</span>
+          </h1>
+          <p class="lede">Atur jadwal perawatan armada pelayanan kemanusiaan, catat bentuk perawatannya, dan simpan foto sebagai bukti bahwa armada siap berangkat melayani sesama dengan aman.</p>
+          <div class="hero-actions">
+            <button type="button" class="btn btn-primary btn-lg" id="heroAddBtn">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+                <path d="M12 5v14M5 12h14"/>
+              </svg>
+              Jadwalkan perawatan
+            </button>
+            <a href="#jadwal" class="btn btn-ghost btn-lg">Lihat slide jadwal</a>
+          </div>
+        </div>
+
+        <aside class="summary-panel" aria-label="Ringkasan armada">
+          <div class="summary-head">
+            <span class="summary-title"><span class="live-dot"></span>Ringkasan armada</span>
+            <span class="today-chip" id="todayChip">—</span>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-value" id="statCars">0</span>
+              <span class="stat-label">Armada</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="statDone">0</span>
+              <span class="stat-label">Selesai</span>
+            </div>
+            <div class="stat">
+              <span class="stat-value" id="statPhotos">0</span>
+              <span class="stat-label">Foto bukti</span>
+            </div>
+          </div>
+
+          <div class="next-card">
+            <span class="next-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3" y="4.5" width="18" height="17" rx="3"/>
+                <path d="M8 2.5v4M16 2.5v4M3 9.5h18"/>
+                <path d="m9 15 2 2 4-4"/>
+              </svg>
+            </span>
+            <div class="next-copy">
+              <span class="field-label">Perawatan berikutnya</span>
+              <strong id="nextTitle">Belum ada jadwal</strong>
+              <span id="nextSub">Tambahkan perawatan pertamamu</span>
+            </div>
+            <span class="next-badge" id="nextBadge">—</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="schedule" id="jadwal">
+        <div class="section-head">
+          <div class="section-copy">
+            <p class="eyebrow-small">Jadwal armada</p>
+            <h2>Jadwal perawatan armada</h2>
+            <p class="section-sub" id="scheduleSub">Belum ada catatan perawatan.</p>
+          </div>
+
+          <div class="filters" id="filters" role="group" aria-label="Filter jadwal">
+            <button type="button" class="chip is-active" data-filter="all">Semua <span class="chip-count">0</span></button>
+            <button type="button" class="chip" data-filter="upcoming">Terjadwal <span class="chip-count">0</span></button>
+            <button type="button" class="chip" data-filter="today">Hari ini <span class="chip-count">0</span></button>
+            <button type="button" class="chip" data-filter="overdue">Terlambat <span class="chip-count">0</span></button>
+            <button type="button" class="chip" data-filter="done">Selesai <span class="chip-count">0</span></button>
+          </div>
+        </div>
+
+        <div class="carousel" id="carousel">
+          <div class="carousel-viewport" id="viewport">
+            <div class="carousel-track" id="track" tabindex="0" role="region" aria-roledescription="korsel" aria-label="Slide jadwal perawatan"></div>
+          </div>
+
+          <div class="carousel-footer" id="carouselFooter" hidden>
+            <div class="dots" id="dots"></div>
+            <div class="carousel-controls">
+              <span class="slide-counter" aria-live="polite">
+                <span id="currentSlide">01</span><span class="slash">/</span><span id="totalSlides">01</span>
+              </span>
+              <button type="button" class="circle-btn" id="prevBtn" aria-label="Slide sebelumnya">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m15 18-6-6 6-6"/>
+                </svg>
+              </button>
+              <button type="button" class="circle-btn" id="nextBtn" aria-label="Slide berikutnya">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="m9 18 6-6-6-6"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="empty-state" id="emptyState" hidden>
+          <div class="empty-visual" aria-hidden="true">
+            <span class="empty-glow"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9L18.4 5.6A2 2 0 0 0 16.5 4h-9a2 2 0 0 0-1.9 1.6L3.5 11.1C2.7 11.3 2 12.1 2 13v3c0 .6.4 1 1 1h2"/>
+              <circle cx="7" cy="17" r="2"/>
+              <circle cx="17" cy="17" r="2"/>
+              <path d="M9 17h6"/>
+            </svg>
+          </div>
+          <p class="eyebrow-small" id="emptyEyebrow">Armada belum tercatat</p>
+          <h2 id="emptyTitle">Belum ada jadwal perawatan</h2>
+          <p id="emptyText">Tambahkan armada pertamamu, atur tanggal servis, dan simpan foto sebagai bukti perawatan.</p>
+          <button type="button" class="btn btn-primary" id="emptyActionBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+              <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Buat jadwal pertama
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p class="footer-brand">ARMADA PELAYAN <span>KEMANUSIAAN</span></p>
+      <p class="footer-note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="4" y="10" width="16" height="11" rx="2"/>
+          <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+        </svg>
+        Semua jadwal &amp; foto armada tersimpan lokal di perangkatmu.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Template slide jadwal -->
+  <template id="slideTemplate">
+    <article class="slide">
+      <div class="slide-media">
+        <img class="slide-photo" alt="" hidden>
+        <div class="photo-placeholder">
+          <span class="placeholder-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/>
+              <circle cx="12" cy="13" r="3.5"/>
+            </svg>
+          </span>
+          <strong>Belum ada foto bukti</strong>
+          <p>Unggah foto saat perawatan dilakukan.</p>
+          <button type="button" class="btn btn-small btn-ghost" data-action="quick-photo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M12 16V4M7 9l5-5 5 5"/>
+              <path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/>
+            </svg>
+            Unggah foto
+          </button>
+        </div>
+        <div class="media-shade"></div>
+        <div class="media-top">
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            <span class="status-text"></span>
+          </span>
+          <button type="button" class="media-icon-btn" data-action="zoom-photo" aria-label="Perbesar foto bukti" title="Perbesar foto" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+            </svg>
+          </button>
+        </div>
+        <div class="media-bottom">
+          <div class="date-box">
+            <span class="date-main"></span>
+            <span class="date-rel"></span>
+          </div>
+          <button type="button" class="media-photo-btn" data-action="quick-photo" title="Ganti foto bukti" hidden>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/>
+              <circle cx="12" cy="13" r="3"/>
+            </svg>
+            <span>Ganti foto</span>
+          </button>
+        </div>
+        <div class="processing-overlay" aria-hidden="true">
+          <span class="spinner"></span>
+          <span>Memproses foto…</span>
+        </div>
+      </div>
+
+      <div class="slide-body">
+        <div class="car-head">
+          <div class="car-title">
+            <span class="field-label">Armada</span>
+            <h3 class="car-name"></h3>
+          </div>
+          <span class="plate"></span>
+        </div>
+
+        <div class="service-block">
+          <span class="service-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76Z"/>
+            </svg>
+          </span>
+          <div class="service-copy">
+            <span class="field-label">Bentuk perawatan</span>
+            <p class="service-name"></p>
+          </div>
+        </div>
+
+        <div class="officer-block">
+          <span class="officer-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="m16 11 2 2 4-4"/>
+            </svg>
+          </span>
+          <div class="officer-copy">
+            <span class="field-label">Petugas perawatan</span>
+            <p class="officer-name"></p>
+          </div>
+        </div>
+
+        <p class="notes"></p>
+        <div class="slide-meta"></div>
+
+        <div class="slide-actions">
+          <button type="button" class="btn done-btn" data-action="toggle-done"></button>
+          <button type="button" class="icon-btn" data-action="edit" aria-label="Edit jadwal" title="Edit jadwal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M17 3a2.85 2.85 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+              <path d="m15 5 4 4"/>
+            </svg>
+          </button>
+          <button type="button" class="icon-btn icon-btn--danger" data-action="delete" aria-label="Hapus jadwal" title="Hapus jadwal">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <!-- Form tambah / edit jadwal -->
+  <dialog id="formDialog" class="modal">
+    <form id="scheduleForm" class="modal-card" novalidate>
+      <header class="modal-head">
+        <div>
+          <p class="eyebrow-small" id="formEyebrow">Jadwal perawatan</p>
+          <h2 id="formTitle">Tambah jadwal</h2>
+        </div>
+        <button type="button" class="icon-btn" data-close-dialog aria-label="Tutup form" title="Tutup">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M18 6 6 18M6 6l12 12"/>
+          </svg>
+        </button>
+      </header>
+
+      <div class="modal-body">
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label">Nama mobil / armada <em>*</em></span>
+            <input type="text" id="carInput" name="car" list="carOptions" placeholder="Contoh: Toyota Avanza" maxlength="60" autocomplete="off" required>
+            <datalist id="carOptions"></datalist>
+          </label>
+          <label class="field">
+            <span class="field-label">Nomor polisi</span>
+            <input type="text" id="plateInput" name="plate" placeholder="B 1234 XYZ" maxlength="15" autocomplete="off">
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label">Tanggal perawatan <em>*</em></span>
+            <input type="date" id="dateInput" name="date" required>
+          </label>
+          <label class="field">
+            <span class="field-label">Biaya <span class="optional">(opsional)</span></span>
+            <span class="input-prefix">
+              <span>Rp</span>
+              <input type="number" id="costInput" name="cost" min="0" step="1" inputmode="numeric" placeholder="350000">
+            </span>
+          </label>
+        </div>
+
+        <div class="field-row">
+          <label class="field">
+            <span class="field-label">Bentuk perawatan <em>*</em></span>
+            <input type="text" id="serviceInput" name="service" list="serviceOptions" placeholder="Contoh: Ganti oli mesin" maxlength="80" autocomplete="off" required>
+            <datalist id="serviceOptions">
+              <option value="Servis rutin"></option>
+              <option value="Ganti oli mesin"></option>
+              <option value="Ganti oli transmisi"></option>
+              <option value="Ganti filter oli"></option>
+              <option value="Ganti filter udara"></option>
+              <option value="Rotasi &amp; balancing ban"></option>
+              <option value="Ganti ban"></option>
+              <option value="Servis rem"></option>
+              <option value="Servis AC"></option>
+              <option value="Tune up"></option>
+              <option value="Ganti aki"></option>
+              <option value="Ganti busi"></option>
+              <option value="Servis kaki-kaki"></option>
+              <option value="Cuci &amp; detailing"></option>
+              <option value="Perpanjang STNK"></option>
+            </datalist>
+          </label>
+          <label class="field">
+            <span class="field-label">Nama petugas <em>*</em></span>
+            <input type="text" id="officerInput" name="officer" list="officerOptions" placeholder="Contoh: Budi Santoso" maxlength="80" autocomplete="off" required>
+            <datalist id="officerOptions"></datalist>
+          </label>
+        </div>
+
+        <label class="field">
+          <span class="field-label">Catatan <span class="optional">(opsional)</span></span>
+          <textarea id="notesInput" name="notes" rows="3" maxlength="300" placeholder="Nama bengkel, keluhan, atau detail lainnya…"></textarea>
+        </label>
+
+        <div class="field">
+          <span class="field-label">Foto bukti <span class="optional">(opsional, tapi sangat disarankan)</span></span>
+          <div class="photo-drop" id="photoDrop">
+            <input type="file" id="photoInput" accept="image/*" hidden>
+
+            <div class="photo-drop-empty" id="photoDropEmpty">
+              <span class="upload-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3Z"/>
+                  <circle cx="12" cy="13" r="3.5"/>
+                </svg>
+              </span>
+              <p>Seret foto ke sini atau <button type="button" id="pickPhotoBtn">pilih dari perangkat</button></p>
+              <small>JPG, PNG, atau WEBP · maks. 20 MB</small>
+            </div>
+
+            <div class="photo-drop-preview" id="photoDropPreview" hidden>
+              <img id="photoPreview" alt="Pratinjau foto bukti">
+              <div class="preview-actions">
+                <button type="button" class="btn btn-small btn-ghost" id="replacePhotoBtn">Ganti foto</button>
+                <button type="button" class="btn btn-small btn-danger-ghost" id="removePhotoBtn">Hapus</button>
+              </div>
+            </div>
+
+            <div class="photo-processing" id="photoProcessing" hidden>
+              <span class="spinner"></span>
+              <span>Memproses foto…</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <p class="form-feedback" id="formFeedback" role="alert" hidden></p>
+
+      <footer class="modal-foot">
+        <button type="button" class="btn btn-ghost" data-close-dialog>Batal</button>
+        <button type="submit" class="btn btn-primary" id="saveBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20 6 9 17l-5-5"/>
+          </svg>
+          <span id="saveBtnText">Simpan jadwal</span>
+        </button>
+      </footer>
+    </form>
+  </dialog>
+
+  <!-- Konfirmasi hapus -->
+  <dialog id="confirmDialog" class="modal modal--confirm">
+    <div class="modal-card confirm-card">
+      <span class="confirm-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 6h18M8 6V4h8v2M19 6l-1 14H6L5 6M10 11v5M14 11v5"/>
+        </svg>
+      </span>
+      <h2>Hapus jadwal?</h2>
+      <p id="confirmText">Jadwal ini akan dihapus permanen, termasuk foto buktinya.</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn btn-ghost" id="cancelDeleteBtn">Batal</button>
+        <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Ya, hapus</button>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Tampilan foto penuh -->
+  <dialog id="photoDialog" class="photo-modal">
+    <div class="photo-modal-inner">
+      <button type="button" class="photo-close" id="photoCloseBtn" aria-label="Tutup foto" title="Tutup">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <path d="M18 6 6 18M6 6l12 12"/>
+        </svg>
+      </button>
+      <img id="photoDialogImg" alt="Foto bukti perawatan">
+      <p id="photoDialogCaption"></p>
+    </div>
+  </dialog>
+
+  <input type="file" id="quickPhotoInput" accept="image/*" hidden>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="toast-icon toast-icon--success" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20 6 9 17l-5-5"/>
+      </svg>
+    </span>
+    <span class="toast-icon toast-icon--error" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 9v4M12 17h.01"/>
+        <path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0Z"/>
+      </svg>
+    </span>
+    <span id="toastMsg"></span>
+  </div>
+
+  <noscript>
+    <div class="noscript-note">Aplikasi ini membutuhkan JavaScript untuk menyimpan jadwal dan foto perawatan.</div>
+  </noscript>
+
+  <script src="app.js" defer></script>
+</body>
+</html>
